@@ -65,6 +65,20 @@ class Tree:
             for p in self._subtree_preorder(self.root()):
                 yield p
 
+    def preorder_indent(T, p, d):
+        print(2*d*' '+str(p.element()))
+        for c in T.children(p):
+            preorder_indent(T, c, d+1)
+
+    def preorder_label(T, p, d, path):
+        label = '.'.join(str(j+1) for j in path)
+        print(2*d*' '+label, p.element())
+        path.append(0)
+        for c in T.children(p):
+            preorder_label(T, c, d+1, path)
+            path[-1] += 1
+        path.pop()
+
     def _subtree_preorder(self, p):
         yield p
         for c in self.children(p):
@@ -94,3 +108,14 @@ class Tree:
                 yield p
                 for c in self.children(p):
                     fringe.enqueue(c)
+
+    def parenthesize(T, p):
+        print(p.element(), end='')
+        if not T.is_leaf(p):
+            first_time = True
+            for c in T.children(p):
+                sep = ' (' if first_time else ', '
+                print(sep, end='')
+                first_time = False
+                parenthesize(T, c)
+            print(')', end='')
