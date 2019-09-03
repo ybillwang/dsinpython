@@ -1,5 +1,5 @@
 from priority_queue_base import PriorityQueueBase
-from .positional_list import PositionalList
+from positional_list import PositionalList
 
 
 class UnsortedPriorityQueue(PriorityQueueBase):
